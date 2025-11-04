@@ -1,0 +1,388 @@
+/* ---- ESTILOS ORIGINALES QUE ME ENTREGASTE ---- */
+:root{
+  --bg:#0f172a;
+  --card:#0b1220;
+  --text:#e6eef8;
+  --accent:#06b6d4;
+  --gap:18px;
+  --btn-size:140px;
+  --on-color:#16a34a;
+  --off-color:#e11d48;
+  --muted:#9aa6bd;
+}
+*{box-sizing:border-box;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
+
+/* Quitar el marco blanco del layout */
+body, main, .container {
+    background: linear-gradient(180deg, #071021 0%, #062033 100%) !important;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.monitor-container {
+    min-height: calc(100vh - 60px);
+    background: transparent !important;
+    color: var(--text);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel {
+    width: 100%;
+    max-width: 1200px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius: 14px;
+    padding: 26px;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+    color: var(--text);
+}
+
+p.lead {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* ---- Estilos para la sección de fuentes de datos ---- */
+.data-source-section {
+    margin: 30px 0;
+    background: rgba(255,255,255,0.02);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+.data-source-section h3 {
+    margin: 0 0 20px 0;
+    color: var(--accent);
+    font-size: 1.2rem;
+}
+
+.source-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.source-tab {
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.source-tab:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
+}
+
+.source-tab.active {
+    background: rgba(6, 182, 212, 0.1);
+    border-color: rgba(6, 182, 212, 0.3);
+    color: var(--accent);
+}
+
+.source-panel {
+    display: none;
+}
+
+.source-panel.active {
+    display: block;
+}
+
+.panel-content {
+    padding: 20px;
+    background: rgba(255,255,255,0.01);
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+.panel-content p {
+    margin: 0 0 15px 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.simulation-controls,
+.file-controls,
+.url-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.github-presets {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.preset-btn {
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    color: #8b5cf6;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.preset-btn:hover {
+    background: rgba(139, 92, 246, 0.2);
+}
+
+.file-input,
+.url-input {
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: var(--text);
+    font-size: 0.9rem;
+    min-width: 300px;
+}
+
+.file-input::file-selector-button {
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    color: var(--accent);
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.file-preview {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.preview-success {
+    color: #16a34a;
+    background: rgba(22, 163, 74, 0.1);
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(22, 163, 74, 0.2);
+}
+
+.preview-error {
+    color: #e11d48;
+    background: rgba(225, 29, 72, 0.1);
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(225, 29, 72, 0.2);
+}
+
+.preview-loading {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.1);
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* ---- Estilos existentes para gráficas ---- */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap);
+    margin: 30px 0;
+}
+
+.grafica-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+.grafica-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.grafica-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--accent);
+}
+
+.valor-actual {
+    background: rgba(6, 182, 212, 0.1);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #06b6d4;
+}
+
+.grafica-container {
+    width: 100%;
+    height: 200px;
+    position: relative;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 30px 0;
+}
+
+.btn-light {
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.06);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.btn-light:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
+    color: var(--text);
+}
+
+.status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    color: var(--text);
+}
+
+.status-list {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: var(--text);
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--muted);
+}
+
+footer {
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Asegurar que todo el texto sea blanco */
+body, h1, h2, h3, h4, h5, h6, p, span, div, label, button {
+    color: var(--text) !important;
+}
+
+/* Específicamente para los números y texto de Chart.js */
+.chartjs-render-monitor {
+    color: var(--text) !important;
+}
+
+@media (max-width: 900px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .panel {
+        padding: 20px;
+    }
+    
+    .grafica-container {
+        height: 180px;
+    }
+    
+    .source-tabs {
+        flex-direction: column;
+    }
+    
+    .file-input,
+    .url-input {
+        min-width: 100%;
+    }
+    
+    .simulation-controls,
+    .file-controls,
+    .url-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+@media (max-width: 680px) {
+    .monitor-container {
+        padding: 15px;
+    }
+    
+    .grafica-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .valor-actual {
+        align-self: flex-end;
+    }
+    
+    .header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .status-row {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
