@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Panel Acuapónico - Control de Actuadores</title>
+  <title>Panel Acuapónico - Control de Actuadores</title>
   <style>
     /* ---- Tus estilos originales ---- */
     :root{
@@ -52,31 +52,261 @@
 
     footer{margin-top:18px;color:var(--muted);font-size:13px}
 
+    /* ===== MEJORAS RESPONSIVE ===== */
+    
+    /* Mobile First - Pantallas pequeñas */
+    @media (max-width: 480px) {
+        body {
+            padding: 16px;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        
+        .panel {
+            width: 100%;
+            max-width: 100%;
+            padding: 20px 16px;
+            border-radius: 12px;
+        }
+        
+        .grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .card {
+            min-height: 140px;
+            padding: 20px;
+        }
+        
+        .actuator-btn {
+            width: 100%;
+            height: 120px;
+            max-width: 200px;
+            margin: 0 auto;
+        }
+        
+        .actuator-btn .icon {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .actuator-btn .label {
+            font-size: 16px;
+        }
+        
+        .actuator-btn .small {
+            font-size: 13px;
+        }
+        
+        .status-row {
+            flex-direction: column;
+            gap: 16px;
+            text-align: center;
+            margin-top: 24px;
+        }
+        
+        .status-list {
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .controls {
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        
+        .btn-light {
+            padding: 12px 20px;
+            font-size: 14px;
+            min-width: 140px;
+        }
+        
+        footer {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 24px;
+        }
+    }
+    
+    /* Tablets y pantallas medianas */
+    @media (min-width: 481px) and (max-width: 768px) {
+        body {
+            padding: 24px;
+        }
+        
+        .panel {
+            padding: 24px;
+            width: 95%;
+        }
+        
+        .grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .actuator-btn {
+            width: 100%;
+            height: 140px;
+            max-width: 160px;
+            margin: 0 auto;
+        }
+        
+        .actuator-btn .icon {
+            width: 42px;
+            height: 42px;
+        }
+        
+        .status-row {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+        }
+        
+        .controls {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .btn-light {
+            padding: 12px 18px;
+        }
+    }
+    
+    /* Pantallas grandes */
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        
+        .actuator-btn {
+            width: 150px;
+            height: 150px;
+        }
+    }
+    
+    /* Pantallas muy grandes */
+    @media (min-width: 1025px) and (max-width: 1200px) {
+        .grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        
+        .actuator-btn {
+            width: 130px;
+            height: 130px;
+        }
+    }
+    
+    /* Orientación landscape en móviles */
+    @media (max-height: 600px) and (orientation: landscape) {
+        body {
+            padding: 12px;
+            align-items: flex-start;
+        }
+        
+        .panel {
+            max-height: 95vh;
+            overflow-y: auto;
+            width: 100%;
+        }
+        
+        .grid {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        
+        .card {
+            min-height: 120px;
+            padding: 12px;
+        }
+        
+        .actuator-btn {
+            height: 100px;
+            width: 100px;
+        }
+        
+        .actuator-btn .icon {
+            width: 32px;
+            height: 32px;
+        }
+        
+        .actuator-btn .label {
+            font-size: 12px;
+        }
+        
+        .actuator-btn .small {
+            font-size: 10px;
+        }
+    }
+    
+    /* Mejoras de accesibilidad */
+    @media (prefers-reduced-motion: reduce) {
+        .actuator-btn {
+            transition: none;
+        }
+    }
+    
+    /* Mejoras para pantallas táctiles */
+    @media (hover: none) and (pointer: coarse) {
+        .actuator-btn {
+            min-height: 44px;
+            min-width: 44px;
+        }
+        
+        .btn-light {
+            min-height: 44px;
+            min-width: 44px;
+            padding: 12px 16px;
+        }
+    }
+
+    /* Soporte para modo oscuro del sistema */
+    @media (prefers-color-scheme: dark) {
+        .panel {
+            background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+        }
+    }
+
+    /* ===== MEDIA QUERY EXISTENTE MANTENIDA ===== */
     @media (max-width:680px){
       .grid{grid-template-columns:repeat(2,1fr)}
       .actuator-btn{width:120px;height:120px}
+    }
+
+    /* Mejoras para lectores de pantalla */
+    @media speech {
+        .actuator-btn::after {
+            content: " - Botón de actuador";
+            speak: literal-punctuation;
+        }
     }
   </style>
 </head>
 <body>
   <div class="panel">
     <div class="grid" id="actuators">
-      <div class="card"><button class="actuator-btn" data-id="lights"><div class="icon">💡</div><div class="label">Luces</div><div class="small">Estado: <span class="state-text">OFF</span></div></button></div>
-      <div class="card"><button class="actuator-btn" data-id="dispenser"><div class="icon">📦</div><div class="label">Dispensador</div><div class="small">Estado: <span class="state-text">OFF</span></div></button></div>
-      <div class="card"><button class="actuator-btn" data-id="valve"><div class="icon">🔧</div><div class="label">Válvula</div><div class="small">Estado: <span class="state-text">OFF</span></div></button></div>
-      <div class="card"><button class="actuator-btn" data-id="aerator"><div class="icon">💨</div><div class="label">Aereador</div><div class="small">Estado: <span class="state-text">OFF</span></div></button></div>
+      <div class="card"><button class="actuator-btn" data-id="lights" aria-label="Control de luces"><div class="icon">💡</div><div class="label">Luces</div><div class="small">Estado: <span class="state-text">OFF</span></div></button></div>
+      <div class="card"><button class="actuator-btn" data-id="dispenser" aria-label="Control de dispensador"><div class="icon">📦</div><div class="label">Dispensador</div><div class="small">Estado: <span class="state-text">OFF</span></div></button></div>
+      <div class="card"><button class="actuator-btn" data-id="valve" aria-label="Control de válvula"><div class="icon">🔧</div><div class="label">Válvula</div><div class="small">Estado: <span class="state-text">OFF</span></div></button></div>
+      <div class="card"><button class="actuator-btn" data-id="aerator" aria-label="Control de aerador"><div class="icon">💨</div><div class="label">Aereador</div><div class="small">Estado: <span class="state-text">OFF</span></div></button></div>
     </div>
 
     <div class="status-row">
       <div class="status-list">
-        <div class="dot" id="dot-lights"></div>
-        <div class="dot" id="dot-dispenser"></div>
-        <div class="dot" id="dot-valve"></div>
-        <div class="dot" id="dot-aerator"></div>
+        <div class="dot" id="dot-lights" aria-label="Estado luces"></div>
+        <div class="dot" id="dot-dispenser" aria-label="Estado dispensador"></div>
+        <div class="dot" id="dot-valve" aria-label="Estado válvula"></div>
+        <div class="dot" id="dot-aerator" aria-label="Estado aerador"></div>
       </div>
       <div class="controls">
-        <button class="btn-light" id="all-on">Encender todos</button>
-        <button class="btn-light" id="all-off">Apagar todos</button>
+        <button class="btn-light" id="all-on" aria-label="Encender todos los actuadores">Encender todos</button>
+        <button class="btn-light" id="all-off" aria-label="Apagar todos los actuadores">Apagar todos</button>
       </div>
     </div>
 
@@ -118,10 +348,14 @@
       btn.classList.toggle('on', isOn);
       btn.classList.toggle('off', !isOn);
       btn.setAttribute('aria-pressed', String(isOn));
+      btn.setAttribute('aria-label', `Control de ${btn.querySelector('.label').textContent} - Estado: ${isOn ? 'ENCENDIDO' : 'APAGADO'}`);
       const txt = btn.querySelector('.state-text');
       if(txt) txt.textContent = isOn ? 'ON' : 'OFF';
       const dot = document.getElementById('dot-'+id);
-      if(dot) dot.style.background = isOn ? getComputedStyle(document.documentElement).getPropertyValue('--on-color') : getComputedStyle(document.documentElement).getPropertyValue('--muted');
+      if(dot) {
+        dot.style.background = isOn ? getComputedStyle(document.documentElement).getPropertyValue('--on-color') : getComputedStyle(document.documentElement).getPropertyValue('--muted');
+        dot.setAttribute('aria-label', `${id} ${isOn ? 'activo' : 'inactivo'}`);
+      }
     });
   }
 
@@ -203,7 +437,23 @@
 
     document.getElementById('all-on').addEventListener('click', allOn);
     document.getElementById('all-off').addEventListener('click', allOff);
+
+    // Mejora responsive: ajustar dinámicamente en redimensionamiento
+    window.addEventListener('resize', function() {
+      // Forzar actualización de layout si es necesario
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        document.body.style.overflow = '';
+      }, 100);
+    });
   });
+
+  // Prevenir zoom en dispositivos móviles con doble tap
+  document.addEventListener('touchend', function(e) {
+    if (e.touches && e.touches.length > 1) {
+      e.preventDefault();
+    }
+  }, { passive: false });
 </script>
 
 </body>

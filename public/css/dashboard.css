@@ -23,70 +23,71 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 36px;
+    padding: 20px;
 }
 
 .panel {
-    width: 960px;
-    max-width: 95%;
+    width: min(960px, 95%);
     background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
     border-radius: 14px;
-    padding: 26px;
+    padding: clamp(16px, 3vw, 26px);
     box-shadow: 0 8px 30px rgba(2,6,23,0.6);
 }
 
 .header {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: clamp(12px, 3vw, 16px);
     margin-bottom: 18px;
+    flex-wrap: wrap;
 }
 
 .logo {
-    width: 56px;
-    height: 56px;
+    width: clamp(44px, 8vw, 56px);
+    height: clamp(44px, 8vw, 56px);
     border-radius: 10px;
     background: linear-gradient(135deg, var(--accent), #7c3aed);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 20px;
+    font-size: clamp(16px, 4vw, 20px);
 }
 
 h1 {
     margin: 0;
-    font-size: 18px;
+    font-size: clamp(16px, 4vw, 18px);
 }
 
 p.lead {
     margin: 0;
     color: var(--muted);
-    font-size: 13px;
+    font-size: clamp(12px, 3vw, 13px);
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--gap);
+    grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+    gap: clamp(12px, 3vw, var(--gap));
     margin-top: 20px;
 }
 
 .card {
     background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
     border-radius: 12px;
-    padding: 16px;
+    padding: clamp(12px, 3vw, 16px);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
-    min-height: 170px;
+    min-height: min-content;
     justify-content: center;
 }
 
 .actuator-btn {
-    width: var(--btn-size);
-    height: var(--btn-size);
+    width: min(var(--btn-size), 100%);
+    height: min(var(--btn-size), 100px);
+    aspect-ratio: 1;
     border-radius: 12px;
     border: 3px solid rgba(255,255,255,0.06);
     display: flex;
@@ -106,8 +107,8 @@ p.lead {
 }
 
 .actuator-btn .icon {
-    width: 46px;
-    height: 46px;
+    width: clamp(36px, 8vw, 46px);
+    height: clamp(36px, 8vw, 46px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -115,11 +116,14 @@ p.lead {
 
 .actuator-btn .label {
     font-weight: 600;
+    font-size: clamp(12px, 3vw, 14px);
+    text-align: center;
 }
 
 .actuator-btn .small {
-    font-size: 12px;
+    font-size: clamp(10px, 2.5vw, 12px);
     color: var(--muted);
+    text-align: center;
 }
 
 .actuator-btn.on {
@@ -140,12 +144,14 @@ p.lead {
     justify-content: space-between;
     margin-top: 18px;
     gap: 12px;
+    flex-wrap: wrap;
 }
 
 .status-list {
     display: flex;
     gap: 12px;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .dot {
@@ -160,6 +166,7 @@ p.lead {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .btn-light {
@@ -169,54 +176,48 @@ p.lead {
     border: 1px solid rgba(255,255,255,0.06);
     color: var(--muted);
     cursor: pointer;
+    font-size: clamp(12px, 3vw, 14px);
 }
 
 footer {
     margin-top: 18px;
     color: var(--muted);
-    font-size: 13px;
-}
-
-@media (max-width: 680px) {
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .actuator-btn {
-        width: 120px;
-        height: 120px;
-    }
+    font-size: clamp(11px, 2.5vw, 13px);
 }
 
 /* Estilos adicionales para el contenido */
 .metric-card {
     background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
     border-radius: 12px;
-    padding: 16px;
+    padding: clamp(12px, 3vw, 16px);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    min-height: 120px;
+    min-height: min-content;
     justify-content: center;
 }
 
 .metric-value {
-    font-size: 28px;
+    font-size: clamp(20px, 6vw, 28px);
     font-weight: 700;
     color: var(--accent);
+    text-align: center;
 }
 
 .metric-label {
-    font-size: 14px;
+    font-size: clamp(12px, 3vw, 14px);
     color: var(--muted);
+    text-align: center;
 }
 
 .metric-status {
-    font-size: 12px;
+    font-size: clamp(10px, 2.5vw, 12px);
     padding: 4px 10px;
     border-radius: 20px;
     background: rgba(22, 163, 74, 0.15);
     color: #16a34a;
+    text-align: center;
 }
 
 .metric-status.warning {
@@ -230,7 +231,7 @@ footer {
 }
 
 .section-title {
-    font-size: 16px;
+    font-size: clamp(14px, 4vw, 16px);
     margin: 24px 0 16px 0;
     color: var(--text);
     font-weight: 600;
@@ -238,15 +239,15 @@ footer {
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--gap);
+    grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+    gap: clamp(12px, 3vw, var(--gap));
     margin-bottom: 24px;
 }
 
 .info-card {
     background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
     border-radius: 12px;
-    padding: 20px;
+    padding: clamp(16px, 4vw, 20px);
     margin-bottom: 20px;
 }
 
@@ -255,11 +256,13 @@ footer {
     color: var(--accent);
     border-bottom: 1px solid rgba(255,255,255,0.1);
     padding-bottom: 10px;
+    font-size: clamp(14px, 4vw, 16px);
 }
 
 .info-card p {
     line-height: 1.6;
     color: var(--muted);
+    font-size: clamp(12px, 3vw, 14px);
 }
 
 .btn {
@@ -271,6 +274,7 @@ footer {
     cursor: pointer;
     font-weight: 600;
     margin-top: 10px;
+    font-size: clamp(12px, 3vw, 14px);
 }
 
 .activity-list {
@@ -282,15 +286,114 @@ footer {
     display: flex;
     padding: 10px 0;
     border-bottom: 1px solid rgba(255,255,255,0.05);
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .activity-time {
     min-width: 80px;
     color: var(--muted);
+    font-size: clamp(12px, 3vw, 14px);
 }
 
-@media (max-width: 680px) {
-    .stats-grid {
+/* Media Queries específicas para mejor control */
+@media (max-width: 480px) {
+    body {
+        padding: 12px;
+        align-items: flex-start;
+    }
+    
+    .panel {
+        width: 100%;
+        border-radius: 12px;
+    }
+    
+    .header {
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .actuator-btn {
+        height: auto;
+        min-height: 100px;
+    }
+    
+    .status-row {
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .controls {
+        justify-content: center;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 320px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .actuator-btn {
+        min-height: 80px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .panel {
+        width: min(1100px, 95%);
+    }
+    
+    .grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    .actuator-btn {
+        transition: none;
+    }
+}
+
+/* Modo alto contraste */
+@media (prefers-contrast: high) {
+    :root {
+        --bg: #000000;
+        --card: #111111;
+        --text: #ffffff;
+        --muted: #cccccc;
+    }
+    
+    .actuator-btn {
+        border-width: 2px;
+    }
+}
+
+/* Soporte para orientación landscape en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        padding: 10px;
+        align-items: flex-start;
+    }
+    
+    .panel {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .actuator-btn {
+        height: 80px;
     }
 }

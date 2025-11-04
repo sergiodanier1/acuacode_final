@@ -6,6 +6,7 @@
         <!-- Encabezado -->
         <h1>Sistema de Alertas y Notificaciones</h1>
         <p class="lead">Monitoreo y gestión de alertas del sistema acuapónico</p>
+        
         <!-- Resumen de alertas -->
         <div class="alertas-resumen">
             <div class="resumen-card critico">
@@ -48,10 +49,10 @@
             </div>
             <div class="acciones">
                 <button class="btn-light" id="marcar-todas">
-                    <i class="fas fa-check-double"></i> Marcar todas como leídas
+                    <i class="fas fa-check-double"></i> <span class="btn-text">Marcar todas como leídas</span>
                 </button>
                 <button class="btn-light" id="limpiar-historial">
-                    <i class="fas fa-trash"></i> Limpiar historial
+                    <i class="fas fa-trash"></i> <span class="btn-text">Limpiar historial</span>
                 </button>
             </div>
         </div>
@@ -516,15 +517,7 @@
 </script>
 
 <style>
-    /* ---- Tus estilos originales ---- */
-    /* Quitar el marco blanco del layout */
-    body, main, .container {
-        background: linear-gradient(180deg, #071021 0%, #062033 100%) !important;
-        margin: 0;
-        padding: 0;
-        border: none;
-    }
-
+    /* ---- Estilos base responsivos ---- */
     :root{
       --bg:#0f172a;
       --card:#0b1220;
@@ -537,69 +530,60 @@
       --muted:#9aa6bd;
     }
     *{box-sizing:border-box;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
+    
     body{
-      margin:0;min-height:100vh;background:linear-gradient(180deg,#071021 0%, #062033 100%);color:var(--text);display:flex;align-items:center;justify-content:center;padding:36px;
-    }
-    .panel{width:960px;max-width:95%;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:26px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
-    .header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
-    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px}
-    h1{margin:0;font-size:18px}
-    p.lead{margin:0;color:var(--muted);font-size:13px}
-
-    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:20px}
-
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border-radius:12px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:12px;min-height:170px;justify-content:center}
-
-    .actuator-btn{width:var(--btn-size);height:var(--btn-size);border-radius:12px;border:3px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:transform .12s ease, box-shadow .12s ease;background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.008));color:var(--text);box-shadow:0 6px 20px rgba(2,6,23,0.45)}
-    .actuator-btn:active{transform:translateY(2px) scale(.998)}
-    .actuator-btn .icon{width:46px;height:46px;display:flex;align-items:center;justify-content:center}
-    .actuator-btn .label{font-weight:600}
-    .actuator-btn .small{font-size:12px;color:var(--muted)}
-
-    .actuator-btn.on{background:linear-gradient(180deg, rgba(22,163,74,0.14), rgba(22,163,74,0.06));border-color:rgba(22,163,74,0.45);box-shadow:0 10px 30px rgba(16,185,129,0.08)}
-    .actuator-btn.off{background:linear-gradient(180deg, rgba(225,29,72,0.08), rgba(225,29,72,0.03));border-color:rgba(225,29,72,0.45);box-shadow:0 10px 30px rgba(225,29,72,0.06)}
-
-    .status-row{display:flex;align-items:center;justify-content:space-between;margin-top:18px;gap:12px}
-    .status-list{display:flex;gap:12px;align-items:center}
-    .dot{width:10px;height:10px;border-radius:50%;background:var(--muted)}
-
-    .controls{margin-top:18px;display:flex;align-items:center;gap:10px}
-    .btn-light{padding:10px 12px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);cursor:pointer}
-
-    footer{margin-top:18px;color:var(--muted);font-size:13px}
-
-    @media (max-width:680px){
-      .grid{grid-template-columns:repeat(2,1fr)}
-      .actuator-btn{width:120px;height:120px}
+      margin:0;min-height:100vh;background:linear-gradient(180deg,#071021 0%, #062033 100%);color:var(--text);
     }
 
-    /* ---- Estilos específicos para el sistema de alertas ---- */
     .alertas-container {
         min-height: calc(100vh - 60px);
         background: transparent !important;
         color: var(--text);
         padding: 20px;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
     }
 
-    /* Resumen de alertas */
+    .panel{
+        width: min(1200px, 95%);
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        border-radius:14px;
+        padding: clamp(16px, 4vw, 26px);
+        box-shadow:0 8px 30px rgba(2,6,23,0.6);
+        margin: 0 auto;
+    }
+
+    h1{
+        margin:0 0 8px 0;
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        text-align: center;
+        color: var(--text);
+    }
+
+    p.lead{
+        margin:0 0 24px 0;
+        color:var(--muted);
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        text-align: center;
+    }
+
+    /* ---- Resumen de alertas responsivo ---- */
     .alertas-resumen {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: var(--gap);
+        grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+        gap: clamp(12px, 3vw, var(--gap));
         margin-bottom: 30px;
     }
 
     .resumen-card {
         background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
         border-radius: 12px;
-        padding: 16px;
+        padding: clamp(12px, 3vw, 16px);
         display: flex;
         align-items: center;
-        gap: 12px;
-        min-height: 100px;
+        gap: clamp(8px, 2vw, 12px);
+        min-height: 80px;
         justify-content: center;
         border: 1px solid rgba(255,255,255,0.03);
         transition: transform .12s ease, box-shadow .12s ease;
@@ -616,12 +600,12 @@
     .resumen-card.total { border-left: 4px solid #8b5cf6; }
 
     .resumen-icon {
-        font-size: 2rem;
+        font-size: clamp(1.5rem, 4vw, 2rem);
         opacity: 0.8;
     }
 
     .resumen-cantidad {
-        font-size: 2.2rem;
+        font-size: clamp(1.5rem, 4vw, 2.2rem);
         font-weight: bold;
         line-height: 1;
     }
@@ -633,35 +617,46 @@
 
     .resumen-label {
         color: var(--muted);
-        font-size: 0.9rem;
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
     }
 
-    /* Controles y filtros */
+    /* ---- Controles y filtros responsivos ---- */
     .controles-alertas {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        gap: 16px;
         margin-bottom: 30px;
-        padding: 16px;
+        padding: clamp(12px, 3vw, 16px);
         background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
         border-radius: 12px;
         border: 1px solid rgba(255,255,255,0.03);
     }
 
+    @media (min-width: 768px) {
+        .controles-alertas {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
     .filtros {
         display: flex;
-        gap: 8px;
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .filtro-btn {
-        padding: 8px 16px;
+        padding: 8px 12px;
         border: 1px solid rgba(255,255,255,0.06);
         background: transparent;
         color: var(--muted);
         border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s ease;
-        font-size: 0.9rem;
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+        white-space: nowrap;
     }
 
     .filtro-btn.active,
@@ -673,16 +668,37 @@
 
     .acciones {
         display: flex;
-        gap: 10px;
+        gap: 8px;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 
-    /* Lista de alertas */
+    .btn-light {
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.06);
+        color: var(--muted);
+        cursor: pointer;
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-light:hover {
+        background: rgba(255,255,255,0.05);
+        color: var(--text);
+    }
+
+    /* ---- Lista de alertas responsiva ---- */
     .seccion-alertas {
         margin-bottom: 30px;
     }
 
     .seccion-titulo {
-        font-size: 1.3rem;
+        font-size: clamp(1.1rem, 3vw, 1.3rem);
         margin-bottom: 16px;
         color: var(--accent);
         padding-bottom: 8px;
@@ -691,17 +707,26 @@
 
     .filtros-historial {
         display: flex;
-        gap: 12px;
+        flex-direction: column;
+        gap: 10px;
         margin-bottom: 16px;
     }
 
+    @media (min-width: 480px) {
+        .filtros-historial {
+            flex-direction: row;
+            gap: 12px;
+        }
+    }
+
     .filtro-select {
-        padding: 8px 12px;
+        padding: 10px 12px;
         border: 1px solid rgba(255,255,255,0.06);
         background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
         color: var(--text);
         border-radius: 8px;
-        font-size: 0.9rem;
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+        flex: 1;
     }
 
     .alertas-lista {
@@ -712,13 +737,19 @@
 
     .alerta-item {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 12px;
         padding: 12px;
         background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
         border-radius: 8px;
         border: 1px solid rgba(255,255,255,0.03);
         transition: all 0.3s ease;
+    }
+
+    @media (min-width: 768px) {
+        .alerta-item {
+            align-items: center;
+        }
     }
 
     .alerta-item:hover {
@@ -737,38 +768,49 @@
         font-size: 1.3rem;
         width: 40px;
         text-align: center;
+        flex-shrink: 0;
     }
 
     .alerta-contenido {
         flex: 1;
+        min-width: 0; /* Permite que el contenido se ajuste */
     }
 
     .alerta-header {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 4px;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 6px;
+    }
+
+    @media (min-width: 480px) {
+        .alerta-header {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
     }
 
     .alerta-sensor {
         font-weight: 600;
         color: var(--text);
-        font-size: 0.95rem;
+        font-size: clamp(0.85rem, 2vw, 0.95rem);
     }
 
     .alerta-tiempo {
-        font-size: 0.8rem;
+        font-size: clamp(0.75rem, 1.5vw, 0.8rem);
         color: var(--muted);
     }
 
     .alerta-mensaje {
         color: var(--text);
         line-height: 1.4;
-        font-size: 0.9rem;
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+        word-wrap: break-word;
     }
 
     .alerta-resolucion {
-        font-size: 0.8rem;
+        font-size: clamp(0.75rem, 1.5vw, 0.8rem);
         color: #10b981;
         margin-top: 4px;
         display: flex;
@@ -779,10 +821,18 @@
     .alerta-acciones {
         display: flex;
         gap: 6px;
+        flex-shrink: 0;
+        margin-top: 8px;
+    }
+
+    @media (min-width: 768px) {
+        .alerta-acciones {
+            margin-top: 0;
+        }
     }
 
     .accion-btn {
-        padding: 6px 8px;
+        padding: 8px;
         border: 1px solid rgba(255,255,255,0.06);
         background: transparent;
         color: var(--muted);
@@ -790,6 +840,11 @@
         cursor: pointer;
         transition: all 0.3s ease;
         font-size: 0.8rem;
+        min-width: 36px;
+        min-height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .accion-btn:hover {
@@ -799,33 +854,37 @@
 
     .alerta-vacia {
         text-align: center;
-        padding: 30px;
+        padding: 40px 20px;
         color: var(--muted);
     }
 
     .alerta-vacia i {
-        font-size: 2.5rem;
+        font-size: clamp(2rem, 6vw, 2.5rem);
         margin-bottom: 12px;
         opacity: 0.5;
     }
 
-    /* Estadísticas */
+    .alerta-vacia p {
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+    }
+
+    /* ---- Estadísticas responsivas ---- */
     .estadisticas-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--gap);
+        grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+        gap: clamp(12px, 3vw, var(--gap));
     }
 
     .estadistica-card {
         background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
         border-radius: 12px;
-        padding: 20px;
+        padding: clamp(16px, 3vw, 20px);
         text-align: center;
         border: 1px solid rgba(255,255,255,0.03);
     }
 
     .estadistica-valor {
-        font-size: 2.2rem;
+        font-size: clamp(1.5rem, 4vw, 2.2rem);
         font-weight: bold;
         color: var(--accent);
         margin-bottom: 8px;
@@ -833,26 +892,35 @@
 
     .estadistica-label {
         color: var(--muted);
-        font-size: 0.9rem;
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+        line-height: 1.3;
     }
 
-    /* Notificaciones */
+    /* ---- Notificaciones responsivas ---- */
     .notificacion {
         position: fixed;
         top: 20px;
         right: 20px;
+        left: 20px;
         background: rgba(15,23,42,0.95);
         border: 1px solid rgba(255,255,255,0.1);
         border-radius: 8px;
         padding: 12px;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 12px;
-        max-width: 350px;
+        max-width: 400px;
         transform: translateX(400px);
         transition: transform 0.3s ease;
         z-index: 1000;
         backdrop-filter: blur(10px);
+    }
+
+    @media (min-width: 480px) {
+        .notificacion {
+            left: auto;
+            right: 20px;
+        }
     }
 
     .notificacion.mostrar {
@@ -865,12 +933,18 @@
 
     .notificacion-contenido {
         flex: 1;
+        min-width: 0;
     }
 
     .notificacion-titulo {
         font-weight: 600;
         margin-bottom: 4px;
-        font-size: 0.95rem;
+        font-size: clamp(0.9rem, 2vw, 0.95rem);
+    }
+
+    .notificacion-mensaje {
+        font-size: clamp(0.8rem, 2vw, 0.85rem);
+        line-height: 1.3;
     }
 
     .notificacion-cerrar {
@@ -882,57 +956,64 @@
         padding: 0;
         width: 20px;
         height: 20px;
+        flex-shrink: 0;
     }
 
-    /* Responsive */
-    @media (max-width: 900px) {
-        .alertas-resumen {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        
-        .estadisticas-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .controles-alertas {
-            flex-direction: column;
-            gap: 12px;
-            align-items: stretch;
-        }
-        
-        .filtros {
-            justify-content: center;
-            flex-wrap: wrap;
+    /* ---- Mejoras de accesibilidad y touch ---- */
+    @media (prefers-reduced-motion: reduce) {
+        .resumen-card,
+        .alerta-item,
+        .notificacion {
+            transition: none;
         }
     }
 
-    @media (max-width: 680px) {
-        .alertas-resumen {
-            grid-template-columns: 1fr;
+    @media (hover: none) and (pointer: coarse) {
+        .filtro-btn,
+        .btn-light,
+        .accion-btn {
+            min-height: 44px;
+            min-width: 44px;
         }
         
         .alerta-item {
-            flex-direction: column;
-            align-items: flex-start;
+            padding: 16px 12px;
+        }
+    }
+
+    /* ---- Textos responsivos para botones ---- */
+    .btn-text {
+        display: inline;
+    }
+
+    @media (max-width: 480px) {
+        .btn-text {
+            display: none;
         }
         
-        .alerta-header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 4px;
+        .btn-light {
+            padding: 10px;
         }
-        
-        .alerta-acciones {
-            align-self: flex-end;
-            margin-top: 8px;
-        }
-        
-        .filtros-historial {
-            flex-direction: column;
+    }
+
+    /* ---- Soporte para orientación landscape ---- */
+    @media (max-height: 500px) and (orientation: landscape) {
+        .alertas-container {
+            padding: 10px;
         }
         
         .panel {
-            padding: 16px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .alertas-resumen {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        
+        .resumen-card {
+            min-height: 60px;
+            padding: 8px;
         }
     }
 </style>

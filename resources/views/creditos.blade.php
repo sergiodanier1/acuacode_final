@@ -31,41 +31,14 @@
     }
     *{box-sizing:border-box;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
     body{
-      margin:0;min-height:100vh;background:linear-gradient(180deg,#071021 0%, #062033 100%);color:var(--text);display:flex;align-items:center;justify-content:center;padding:36px;
+      margin:0;min-height:100vh;background:linear-gradient(180deg,#071021 0%, #062033 100%);color:var(--text);display:flex;align-items:center;justify-content:center;padding:20px;
     }
-    .panel{width:960px;max-width:95%;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:26px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    .panel{width:100%;max-width:1200px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:20px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
     .header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
     .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px}
     h1{margin:0;font-size:18px}
     p.lead{margin:0;color:var(--muted);font-size:13px}
 
-    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:20px}
-
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border-radius:12px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:12px;min-height:170px;justify-content:center}
-
-    .actuator-btn{width:var(--btn-size);height:var(--btn-size);border-radius:12px;border:3px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:transform .12s ease, box-shadow .12s ease;background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.008));color:var(--text);box-shadow:0 6px 20px rgba(2,6,23,0.45)}
-    .actuator-btn:active{transform:translateY(2px) scale(.998)}
-    .actuator-btn .icon{width:46px;height:46px;display:flex;align-items:center;justify-content:center}
-    .actuator-btn .label{font-weight:600}
-    .actuator-btn .small{font-size:12px;color:var(--muted)}
-
-    .actuator-btn.on{background:linear-gradient(180deg, rgba(22,163,74,0.14), rgba(22,163,74,0.06));border-color:rgba(22,163,74,0.45);box-shadow:0 10px 30px rgba(16,185,129,0.08)}
-    .actuator-btn.off{background:linear-gradient(180deg, rgba(225,29,72,0.08), rgba(225,29,72,0.03));border-color:rgba(225,29,72,0.45);box-shadow:0 10px 30px rgba(225,29,72,0.06)}
-
-    .status-row{display:flex;align-items:center;justify-content:space-between;margin-top:18px;gap:12px}
-    .status-list{display:flex;gap:12px;align-items:center}
-    .dot{width:10px;height:10px;border-radius:50%;background:var(--muted)}
-
-    .controls{margin-top:18px;display:flex;align-items:center;gap:10px}
-    .btn-light{padding:10px 12px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);cursor:pointer}
-
-    footer{margin-top:18px;color:var(--muted);font-size:13px}
-
-    @media (max-width:680px){
-      .grid{grid-template-columns:repeat(2,1fr)}
-      .actuator-btn{width:120px;height:120px}
-    }
-    
     /* ---- Estilos para la página de créditos ---- */
     .credits-container {
         display: flex;
@@ -76,30 +49,32 @@
     .page-title {
         text-align: center;
         margin-bottom: 10px;
-        font-size: 28px;
+        font-size: clamp(24px, 5vw, 32px);
         background: linear-gradient(90deg, var(--accent), #7c3aed);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        line-height: 1.2;
     }
     
     .page-subtitle {
         text-align: center;
         color: var(--muted);
         margin-bottom: 30px;
-        font-size: 16px;
+        font-size: clamp(14px, 3vw, 16px);
+        line-height: 1.4;
     }
     
     .developers-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 25px;
     }
     
     .developer-card {
         background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
         border-radius: 14px;
-        padding: 25px;
+        padding: clamp(20px, 4vw, 25px);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -113,8 +88,8 @@
     }
     
     .developer-img {
-        width: 140px;
-        height: 140px;
+        width: clamp(100px, 25vw, 140px);
+        height: clamp(100px, 25vw, 140px);
         border-radius: 50%;
         object-fit: cover;
         border: 3px solid var(--accent);
@@ -122,27 +97,32 @@
     }
     
     .developer-name {
-        font-size: 22px;
+        font-size: clamp(18px, 4vw, 22px);
         margin: 0 0 8px 0;
         color: var(--text);
+        line-height: 1.3;
     }
     
     .developer-role {
         color: var(--accent);
         margin: 0 0 15px 0;
-        font-size: 16px;
+        font-size: clamp(14px, 3vw, 16px);
+        line-height: 1.4;
     }
     
     .developer-info {
         color: var(--muted);
         margin: 5px 0;
-        font-size: 14px;
+        font-size: clamp(12px, 2.5vw, 14px);
+        word-break: break-word;
     }
     
     .developer-links {
         display: flex;
         gap: 15px;
         margin-top: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
     
     .developer-link {
@@ -151,8 +131,9 @@
         gap: 6px;
         color: var(--accent);
         text-decoration: none;
-        font-size: 14px;
+        font-size: clamp(12px, 2.5vw, 14px);
         transition: color 0.2s;
+        padding: 5px 10px;
     }
     
     .developer-link:hover {
@@ -165,14 +146,14 @@
     
     .technologies-title {
         text-align: center;
-        font-size: 20px;
+        font-size: clamp(18px, 4vw, 20px);
         margin-bottom: 20px;
         color: var(--text);
     }
     
     .technologies-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
         gap: 15px;
     }
     
@@ -188,22 +169,160 @@
     }
     
     .technology-icon {
-        font-size: 30px;
+        font-size: clamp(24px, 6vw, 30px);
         color: var(--accent);
     }
     
     .technology-name {
-        font-size: 14px;
+        font-size: clamp(12px, 2.5vw, 14px);
         color: var(--text);
     }
     
+    footer {
+        margin-top: 30px;
+        color: var(--muted);
+        font-size: clamp(12px, 2.5vw, 13px);
+        text-align: center;
+        padding: 20px 0 10px 0;
+    }
+
+    /* Media Queries específicas para diferentes tamaños */
     @media (max-width: 768px) {
+        body {
+            padding: 15px;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        
+        .panel {
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
         .developers-grid {
             grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .developer-card {
+            padding: 20px 15px;
         }
         
         .technologies-grid {
             grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        
+        .developer-links {
+            gap: 10px;
+        }
+        
+        .developer-link {
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        body {
+            padding: 10px;
+        }
+        
+        .panel {
+            padding: 12px;
+            border-radius: 12px;
+        }
+        
+        .page-title {
+            font-size: 22px;
+        }
+        
+        .page-subtitle {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .developers-grid {
+            gap: 15px;
+        }
+        
+        .developer-card {
+            padding: 15px 12px;
+        }
+        
+        .developer-img {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 15px;
+        }
+        
+        .developer-name {
+            font-size: 18px;
+        }
+        
+        .developer-role {
+            font-size: 14px;
+        }
+        
+        .technologies-grid {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        
+        .technology-item {
+            padding: 12px;
+        }
+        
+        .developer-links {
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+        
+        .developer-link {
+            justify-content: center;
+            padding: 10px;
+        }
+    }
+    
+    @media (max-width: 320px) {
+        .panel {
+            padding: 10px;
+        }
+        
+        .developer-card {
+            padding: 12px 8px;
+        }
+        
+        .developer-img {
+            width: 80px;
+            height: 80px;
+        }
+        
+        .page-title {
+            font-size: 20px;
+        }
+    }
+
+    /* Mejoras para tablets en orientación horizontal */
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .developers-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .technologies-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* Mejoras para pantallas muy grandes */
+    @media (min-width: 1400px) {
+        .panel {
+            max-width: 1400px;
+        }
+        
+        .developers-grid {
+            grid-template-columns: repeat(3, 1fr);
         }
     }
     </style>
@@ -215,23 +334,9 @@
             <p class="page-subtitle">Proyecto desarrollado por estudiantes de Ingeniería Electrónica</p>
             
             <div class="developers-grid">
-                <!-- Tarjeta de Jesús -->
-                <div class="developer-card">
-                    <img src="imagenes/jesus.jfif" alt="Jesús Armando Gómez Garzón" class="developer-img">
-                    <h2 class="developer-name">Jesús Armando Gómez Garzón</h2>
-                    <p class="developer-role">Estudiante de Ingeniería Electrónica</p>
-                    <p class="developer-role">Desarrollo se sofware</p>
-                    <p class="developer-info">jesus.gomez.garzon@uniautonoma.edu.co</p>
-                    <div class="developer-links">
-                        <a href="https://www.facebook.com/jesusarmando.gomez.75" target="_blank" class="developer-link">
-                            <i class="fab fa-facebook"></i> Facebook
-                        </a>
-                    </div>
-                </div>
-                
                 <!-- Tarjeta de Sergio -->
                 <div class="developer-card">
-                    <img src="imagenes/sergio.jpg" alt="Sergio Danier Córdoba Cerón" class="developer-img">
+                    <img src="{{ asset('imagenes/sergio.jpg') }}" alt="Sergio Danier Córdoba Cerón" class="developer-img">
                     <h2 class="developer-name">Sergio Danier Córdoba Cerón</h2>
                     <p class="developer-role">Estudiante de Ingeniería Electrónica</p>
                     <p class="developer-role">Desarrollo se sofware</p>
@@ -242,10 +347,23 @@
                         </a>
                     </div>
                 </div>
-                
+                <!-- Tarjeta de Jesús -->
+                <div class="developer-card">
+                    <img src="{{ asset('imagenes/jesus.jfif') }}" alt="Jesús Armando Gómez Garzón" class="developer-img">
+                    <h2 class="developer-name">Jesús Armando Gómez Garzón</h2>
+                    <p class="developer-role">Estudiante de Ingeniería Electrónica</p>
+                    <p class="developer-role">Desarrollo se sofware</p>
+                    <p class="developer-info">jesus.gomez.garzon@uniautonoma.edu.co</p>
+                    <div class="developer-links">
+                        <a href="https://www.facebook.com/jesusarmando.gomez.75" target="_blank" class="developer-link">
+                            <i class="fab fa-facebook"></i> Facebook
+                        </a>
+                    </div>
+                </div>
+                            
                 <!-- Tarjeta de Elian -->
                 <div class="developer-card">
-                    <img src="imagenes/elian.jpg" alt="Elian Andrés Oliveros Valencia" class="developer-img">
+                    <img src="{{ asset('imagenes/elian.jpg') }}" alt="Elian Andrés Oliveros Valencia" class="developer-img">
                     <h2 class="developer-name">Elian Andrés Oliveros Valencia</h2>
                     <p class="developer-role">Estudiante de Ingeniería Electrónica</p>
                     <p class="developer-role">Desarrollo se hadware</p>
@@ -281,7 +399,7 @@
             </div>
             
             <footer>
-                <p>© 2023 - Proyecto de Desarrollo Web - Ingeniería Electrónica</p>
+                <p>© 2025 - Proyecto de Desarrollo Web - Ingeniería Electrónica</p>
             </footer>
         </div>
     </div>
