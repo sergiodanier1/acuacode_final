@@ -438,7 +438,7 @@
       <div class="user">{{ Auth::user()->name ?? 'Invitado' }}</div>
       
       <!-- Menú de usuario desplegable -->
-      <div class="user-menu">
+      <div class="user-menu" >
         <button class="user-toggle" id="userToggle">
           Mi Cuenta
         </button>
@@ -465,7 +465,7 @@
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
   <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
+  <div class="sidebar" id="sidebar" style="margin-top: -30px;">
     <div>
       <nav class="menu" aria-label="Main menu">
         <ul>
@@ -496,6 +496,10 @@
           <li>
             <a href="{{ url('/Alertas/Activas') }}" class="{{ $current === 'alertas/activas' ? 'active' : '' }}">Ver alertas activas</a>
           </li>
+
+          <li>
+            <a href="{{ url('/creditos') }}" class="{{ $current === 'creditos' ? 'active' : '' }}">Sobre Nosotros</a>
+          </li>
         </ul>
       </nav>
 
@@ -514,19 +518,19 @@
     <div class="sidebar-footer">
       
       <!-- Texto de créditos -->
-      <div class="footer-text">
+      <div class="footer-text" style="margin-top: -5px;">
         <a href="{{ url('/creditos') }}" class="footer-link {{ $current === 'creditos' ? 'active' : '' }}">
-          Sergio Danier Cordoba Ceron<br>
-          Jesus Armando Gomez Garzon<br>
-          <strong>© 2025</strong>
+          Sergio Danier<br>
+          Jesus Armando<br>
+        <strong>© 2025</strong>
         </a>
       </div>
       
       <!-- Imágenes de las instituciones -->
-      <div class="footer-images">
+      <div class="footer-images" style="margin-top: -5px;">
         <img src="{{ asset('imagenes/autonoma.png') }}" alt="Universidad Autónoma" class="footer-img">
       </div>
-      <div class="footer-images">
+      <div class="footer-images" style="margin-top: -5px;">
         <img src="{{ asset('imagenes/sena.png') }}" alt="SENA" class="footer-img">
       </div>
     </div>

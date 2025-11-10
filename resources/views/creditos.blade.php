@@ -331,15 +331,15 @@
     <div class="panel">
         <div class="credits-container">
             <h1 class="page-title">Créditos de Desarrollo Web</h1>
-            <p class="page-subtitle">Proyecto desarrollado por estudiantes de Ingeniería Electrónica</p>
+            <p class="page-subtitle" style="margin-top: -30px;">Proyecto desarrollado por estudiantes de Ingeniería Electrónica</p>
             
-            <div class="developers-grid">
+            <div class="developers-grid" style="margin-top: -30px;">
                 <!-- Tarjeta de Sergio -->
                 <div class="developer-card">
                     <img src="{{ asset('imagenes/sergio.jpg') }}" alt="Sergio Danier Córdoba Cerón" class="developer-img">
                     <h2 class="developer-name">Sergio Danier Córdoba Cerón</h2>
                     <p class="developer-role">Estudiante de Ingeniería Electrónica</p>
-                    <p class="developer-role">Desarrollo se sofware</p>
+                    <p class="developer-role">Desarrollo de sofware</p>
                     <p class="developer-info">sergiodanier@gmail.com</p>
                     <div class="developer-links">
                         <a href="https://www.facebook.com/SergioDanier" target="_blank" class="developer-link">
@@ -352,7 +352,7 @@
                     <img src="{{ asset('imagenes/jesus.jfif') }}" alt="Jesús Armando Gómez Garzón" class="developer-img">
                     <h2 class="developer-name">Jesús Armando Gómez Garzón</h2>
                     <p class="developer-role">Estudiante de Ingeniería Electrónica</p>
-                    <p class="developer-role">Desarrollo se sofware</p>
+                    <p class="developer-role">Desarrollo de sofware</p>
                     <p class="developer-info">jesus.gomez.garzon@uniautonoma.edu.co</p>
                     <div class="developer-links">
                         <a href="https://www.facebook.com/jesusarmando.gomez.75" target="_blank" class="developer-link">
@@ -363,16 +363,43 @@
                             
                 <!-- Tarjeta de Elian -->
                 <div class="developer-card">
-                    <img src="{{ asset('imagenes/elian.jpg') }}" alt="Elian Andrés Oliveros Valencia" class="developer-img">
+                    <img src="{{ asset('imagenes/elian.png') }}" alt="Elian Andrés Oliveros Valencia" class="developer-img">
                     <h2 class="developer-name">Elian Andrés Oliveros Valencia</h2>
                     <p class="developer-role">Estudiante de Ingeniería Electrónica</p>
-                    <p class="developer-role">Desarrollo se hadware</p>
+                    <p class="developer-role">Desarrollo de hadware</p>
                     <p class="developer-info">elian-19-07@hotmail.com</p>
                     <div class="developer-links">
                         <a href="https://www.facebook.com/elianandres.oliveros?mibextid=ZbWKwL" target="_blank" class="developer-link">
                             <i class="fab fa-facebook"></i> Facebook
                         </a>
                     </div>
+                </div>
+            </div>
+            <h1 class="page-title">Docentes e instructores</h1>
+            <div class="developers-grid">
+                <div class="developer-card">
+                    <img src="{{ asset('imagenes/liliana.jpeg') }}" alt="Gloria Liliana López" class="developer-img">
+                    <h2 class="developer-name">Gloria Liliana López</h2>
+                    <p class="developer-role">Magister en Sistemas Mecatrónicos</p>
+                    <p class="developer-role">Docente investigador</p>
+                    <p class="developer-info">gllopez@unicauca.edu.co</p>
+                </div>
+                <!-- Tarjeta de Jesús -->
+                <div class="developer-card">
+                    <img src="{{ asset('imagenes/yesid.jpeg') }}" swidth="100" height="250" alt="Yesid Enrique Castro Caicedo" class="developer-img">
+                    <h2 class="developer-name">Yesid Enrique Castro Caicedo</h2>
+                    <p class="developer-role">MsC Ingeniero Físico</p>
+                    <p class="developer-role">Docente investigador</p>
+                    <p class="developer-info">yesid.castro.c@uniautonoma.edu.co</p>
+                </div>
+                            
+                <!-- Tarjeta de Elian -->
+                <div class="developer-card">
+                    <img src="{{ asset('imagenes/jose.jpeg') }}" alt="Elian Andrés Oliveros Valencia" class="developer-img">
+                    <h2 class="developer-name">José Geovanny Angulo Imbachi</h2>
+                    <p class="developer-role">Ingeniero de Sistemas</p>
+                    <p class="developer-role">Apoyo a la ejecución del proyecto SGPS 12110</p>
+                    <p class="developer-info">jgangulo@misena.edu.co </p>
                 </div>
             </div>
             

@@ -6,6 +6,9 @@
         <!-- Encabezado -->
         <h1>Sistema de Alertas y Notificaciones</h1>
         <p class="lead">Monitoreo y gestión de alertas del sistema acuapónico</p>
+        <p class="lead">Sistema para implementar, asta por definir los limites del
+            sistema, para implementar las tablas de datos de peces, y plantas para posterior
+            desarrollo, en este caso solo funciona con datos aleatorios</p>
         
         <!-- Resumen de alertas -->
         <div class="alertas-resumen">

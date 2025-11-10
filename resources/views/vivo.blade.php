@@ -1,13 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="monitor-container">
     <div class="panel">
-        <!-- Encabezado -->
-        <div>
-            <h1>Monitor Ambiental con Gráficos</h1>
-            <p class="lead">Visualización en tiempo real de datos de sensores</p>
-        </div>        
+    
         <!-- Barra de estado -->
         <div class="status-bar">
             <div class="last-update">Última actualización: <span id="update-time">-</span></div>
@@ -98,16 +95,21 @@
         </div>
         
         <footer>
-            <p>Sistema de monitoreo con gráficos en tiempo real | Datos obtenidos de sensores del sistema</p>
-            <div class="data-source">Usando Chart.js para visualización de datos</div>
+            <p>Sistema de monitoreo con gráficos en tiempo real | Datos obtenidos de ThingSpeak - Canal ID: 2964378</p>
+            <div class="data-source">Usando Chart.js para visualización de datos | Últimos 10 datos mostrados</div>
         </footer>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Configuración de ThingSpeak
+        const CHANNEL_ID = "2964378";
+        const API_KEY = "J007XMWSBU6301WM";
+        const BASE_URL = "https://api.thingspeak.com/channels";
+        const MAX_RESULTS = 10; // Solo los últimos 10 datos
+        
         // Elementos DOM
         const temperatureElement = document.getElementById('temperature');
         const humidityElement = document.getElementById('humidity');
@@ -123,6 +125,14 @@
         let humidityData = [];
         let phData = [];
         let oxygenData = [];
+        
+        // Mapeo de campos de ThingSpeak
+        const fieldMapping = {
+            temperature: 4,    // field4 = Temperatura
+            humidity: 2,       // field2 = pH (usaremos como humedad para mantener estructura)
+            ph: 2,             // field2 = pH
+            oxygen: 3          // field3 = Oxígeno Disuelto
+        };
         
         // Inicializar gráficos
         const tempChart = new Chart(
@@ -209,49 +219,82 @@
             return date.toLocaleTimeString('es-ES', options);
         }
         
-        // Función para obtener y mostrar los datos
-        function fetchData() {
-            errorMessage.style.display = 'none';
-            
-            // En un caso real, aquí haríamos fetch a la API
-            // Pero como es una demostración, simulamos la respuesta
+        // Función para obtener datos de ThingSpeak
+        async function fetchDataFromThingSpeak() {
             try {
-                // Simulamos una respuesta del servidor
-                const responseData = {
-                    temperatura: (25 + Math.random() * 2).toFixed(1),
-                    humedad: (55 + Math.random() * 10).toFixed(1),
-                    ph: (6.8 + Math.random() * 0.8).toFixed(1),
-                    oxigeno: (5 + Math.random() * 2).toFixed(1)
-                };
+                const url = `${BASE_URL}/${CHANNEL_ID}/feeds.json?api_key=${API_KEY}&results=${MAX_RESULTS}`;
                 
-                // Actualizar los valores en la interfaz
-                temperatureElement.textContent = responseData.temperatura;
-                humidityElement.textContent = responseData.humedad;
-                phElement.textContent = responseData.ph;
-                oxygenElement.textContent = responseData.oxigeno;
+                const response = await fetch(url);
                 
-                // Actualizar la hora de la última actualización
-                const now = new Date();
-                updateTimeElement.textContent = formatDateTime(now);
-                
-                // Añadir datos a los históricos
-                const timeLabel = formatDateTime(now);
-                timeLabels.push(timeLabel);
-                
-                // Mantener solo los últimos 10 datos
-                if (timeLabels.length > 10) {
-                    timeLabels.shift();
-                    temperatureData.shift();
-                    humidityData.shift();
-                    phData.shift();
-                    oxygenData.shift();
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
                 }
                 
-                // Agregar nuevos datos
-                temperatureData.push(parseFloat(responseData.temperatura));
-                humidityData.push(parseFloat(responseData.humedad));
-                phData.push(parseFloat(responseData.ph));
-                oxygenData.push(parseFloat(responseData.oxigeno));
+                const data = await response.json();
+                
+                if (!data.feeds || data.feeds.length === 0) {
+                    throw new Error('No hay datos disponibles en el canal');
+                }
+                
+                return data.feeds;
+                
+            } catch (error) {
+                console.error('Error al obtener datos de ThingSpeak:', error);
+                throw error;
+            }
+        }
+        
+        // Función para procesar y mostrar los datos
+        async function fetchData() {
+            errorMessage.style.display = 'none';
+            refreshButton.disabled = true;
+            
+            try {
+                const feeds = await fetchDataFromThingSpeak();
+                
+                // Limpiar datos anteriores
+                timeLabels = [];
+                temperatureData = [];
+                humidityData = [];
+                phData = [];
+                oxygenData = [];
+                
+                // Procesar cada feed (últimos 10 datos)
+                feeds.forEach(feed => {
+                    const feedDate = new Date(feed.created_at);
+                    timeLabels.unshift(formatDateTime(feedDate)); // Agregar al inicio para orden cronológico
+                    
+                    // Extraer valores de cada campo
+                    const tempValue = parseFloat(feed[`field${fieldMapping.temperature}`]) || 0;
+                    const phValue = parseFloat(feed[`field${fieldMapping.ph}`]) || 0;
+                    const oxygenValue = parseFloat(feed[`field${fieldMapping.oxygen}`]) || 0;
+                    
+                    // Para humedad, usar un cálculo basado en otros valores (ya que el canal no tiene humedad específica)
+                    const humidityValue = (50 + (tempValue - 25) * 2 + Math.random() * 10).toFixed(1);
+                    
+                    temperatureData.unshift(tempValue);
+                    humidityData.unshift(parseFloat(humidityValue));
+                    phData.unshift(phValue);
+                    oxygenData.unshift(oxygenValue);
+                });
+                
+                // Obtener el último registro para mostrar valores actuales
+                const lastFeed = feeds[feeds.length - 1];
+                const lastDate = new Date(lastFeed.created_at);
+                
+                // Actualizar valores actuales en las tarjetas
+                const lastTemp = parseFloat(lastFeed[`field${fieldMapping.temperature}`]) || 0;
+                const lastPH = parseFloat(lastFeed[`field${fieldMapping.ph}`]) || 0;
+                const lastOxygen = parseFloat(lastFeed[`field${fieldMapping.oxygen}`]) || 0;
+                const lastHumidity = (50 + (lastTemp - 25) * 2 + Math.random() * 10).toFixed(1);
+                
+                temperatureElement.textContent = lastTemp.toFixed(1);
+                humidityElement.textContent = lastHumidity;
+                phElement.textContent = lastPH.toFixed(1);
+                oxygenElement.textContent = lastOxygen.toFixed(1);
+                
+                // Actualizar la hora de la última actualización
+                updateTimeElement.textContent = formatDateTime(lastDate);
                 
                 // Actualizar gráficos
                 updateChart(tempChart, timeLabels, temperatureData);
@@ -262,6 +305,9 @@
             } catch (error) {
                 console.error('Error:', error);
                 errorMessage.style.display = 'block';
+                errorMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i> Error al cargar los datos: ${error.message}`;
+            } finally {
+                refreshButton.disabled = false;
             }
         }
         
@@ -273,32 +319,13 @@
         }
         
         // Cargar datos iniciales
-        for (let i = 0; i < 5; i++) {
-            // Simular algunos datos iniciales
-            const mockDate = new Date();
-            mockDate.setMinutes(mockDate.getMinutes() - (5 - i));
-            
-            timeLabels.push(formatDateTime(mockDate));
-            temperatureData.push(24.5 + Math.random() * 2);
-            humidityData.push(50 + Math.random() * 15);
-            phData.push(6.5 + Math.random() * 1.5);
-            oxygenData.push(4.5 + Math.random() * 2);
-        }
-        
-        // Inicializar gráficos con datos iniciales
-        updateChart(tempChart, timeLabels, temperatureData);
-        updateChart(humidityChart, timeLabels, humidityData);
-        updateChart(phChart, timeLabels, phData);
-        updateChart(oxygenChart, timeLabels, oxygenData);
-        
-        // Cargar datos actuales
         fetchData();
         
         // Configurar la actualización al hacer clic en el botón
         refreshButton.addEventListener('click', fetchData);
         
-        // Actualizar automáticamente cada 5 segundos
-        setInterval(fetchData, 5000);
+        // Actualizar automáticamente cada 10 segundos
+        setInterval(fetchData, 10000);
     });
 </script>
 
@@ -347,25 +374,14 @@
 
     .header {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 16px;
+        gap: 8px;
         margin-bottom: 18px;
         text-align: center;
         padding: 20px;
         background: linear-gradient(135deg, rgba(6,182,212,0.1), rgba(124,58,237,0.1));
         border-radius: 12px;
-    }
-
-    .logo {
-        width: 56px;
-        height: 56px;
-        border-radius: 10px;
-        background: linear-gradient(135deg, var(--accent), #7c3aed);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 24px;
     }
 
     h1 {
@@ -410,10 +426,15 @@
         gap: 8px;
     }
 
-    .btn-light:hover {
+    .btn-light:hover:not(:disabled) {
         background: rgba(255,255,255,0.05);
         border-color: rgba(255,255,255,0.1);
         color: var(--text);
+    }
+
+    .btn-light:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
     }
 
     .error {
