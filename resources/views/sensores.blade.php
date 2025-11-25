@@ -44,31 +44,31 @@
                 </div>
             </div>
 
-            <!-- Sensor de Humedad -->
+            <!-- Sensor de Conductividad Eléctrica -->
             <div class="card">
                 <div class="sensor-header">
-                    <div class="sensor-icon">💧</div>
-                    <h4 class="sensor-title">Sensor de Humedad</h4>
+                    <div class="sensor-icon">⚡</div>
+                    <h4 class="sensor-title">Sensor de Conductividad Eléctrica</h4>
                     <div class="status-list">
-                        <span class="metric-status">Ambiental</span>
+                        <span class="metric-status">Calidad Agua</span>
                         <span class="metric-status">Activo</span>
                     </div>
                 </div>
                 <p class="sensor-description">
-                    Mide la humedad relativa del ambiente para optimizar las condiciones de crecimiento de las plantas.
+                    Mide la concentración de nutrientes en el agua mediante conductividad eléctrica. Fundamental para el crecimiento de plantas.
                 </p>
                 <div class="sensor-specs">
                     <div class="spec-item">
                         <span class="spec-label">Rango:</span>
-                        <span class="spec-value">0-100% HR</span>
+                        <span class="spec-value">0-5000 µS/cm</span>
                     </div>
                     <div class="spec-item">
                         <span class="spec-label">Precisión:</span>
-                        <span class="spec-value">±2%</span>
+                        <span class="spec-value">±1%</span>
                     </div>
                     <div class="spec-item">
                         <span class="spec-label">Ubicación:</span>
-                        <span class="spec-value">Invernadero</span>
+                        <span class="spec-value">Tanque principal</span>
                     </div>
                 </div>
                 <div class="controls">

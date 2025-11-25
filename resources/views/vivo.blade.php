@@ -29,11 +29,11 @@
                 <div class="data-unit">°C</div>
             </div>
             
-            <div class="data-card humidity">
-                <div class="data-icon"><i class="fas fa-tint"></i></div>
-                <div class="data-title">Humedad</div>
-                <div class="data-value" id="humidity">--</div>
-                <div class="data-unit">%</div>
+            <div class="data-card conductivity">
+                <div class="data-icon"><i class="fas fa-bolt"></i></div>
+                <div class="data-title">Conductividad</div>
+                <div class="data-value" id="conductivity">--</div>
+                <div class="data-unit">µS/cm</div>
             </div>
             
             <div class="data-card ph">
@@ -65,11 +65,11 @@
             
             <div class="chart-container">
                 <div class="chart-title">
-                    <i class="fas fa-tint"></i>
-                    <span>Humedad (%)</span>
+                    <i class="fas fa-bolt"></i>
+                    <span>Conductividad (µS/cm)</span>
                 </div>
                 <div class="chart-size">
-                    <canvas id="humidityChart"></canvas>
+                    <canvas id="conductivityChart"></canvas>
                 </div>
             </div>
             
@@ -96,7 +96,7 @@
         
         <footer>
             <p>Sistema de monitoreo con gráficos en tiempo real | Datos obtenidos de ThingSpeak - Canal ID: 2964378</p>
-            <div class="data-source">Usando Chart.js para visualización de datos | Últimos 10 datos mostrados</div>
+            <div class="data-source">Usando Chart.js para visualización de datos | Últimos 20 datos mostrados</div>
         </footer>
     </div>
 </div>
@@ -108,11 +108,11 @@
         const CHANNEL_ID = "2964378";
         const API_KEY = "J007XMWSBU6301WM";
         const BASE_URL = "https://api.thingspeak.com/channels";
-        const MAX_RESULTS = 10; // Solo los últimos 10 datos
+        const MAX_RESULTS = 20; // Cambiado de 10 a 20 datos
         
         // Elementos DOM
         const temperatureElement = document.getElementById('temperature');
-        const humidityElement = document.getElementById('humidity');
+        const conductivityElement = document.getElementById('conductivity');
         const phElement = document.getElementById('ph');
         const oxygenElement = document.getElementById('oxygen');
         const updateTimeElement = document.getElementById('update-time');
@@ -122,14 +122,14 @@
         // Variables para almacenar datos históricos
         let timeLabels = [];
         let temperatureData = [];
-        let humidityData = [];
+        let conductivityData = [];
         let phData = [];
         let oxygenData = [];
         
         // Mapeo de campos de ThingSpeak
         const fieldMapping = {
             temperature: 4,    // field4 = Temperatura
-            humidity: 2,       // field2 = pH (usaremos como humedad para mantener estructura)
+            conductivity: 1,   // field1 = Conductividad
             ph: 2,             // field2 = pH
             oxygen: 3          // field3 = Oxígeno Disuelto
         };
@@ -140,9 +140,9 @@
             createChartConfig('Temperatura (°C)', 'rgba(255, 126, 95, 0.3)', 'rgb(255, 126, 95)')
         );
         
-        const humidityChart = new Chart(
-            document.getElementById('humidityChart'),
-            createChartConfig('Humedad (%)', 'rgba(0, 205, 172, 0.3)', 'rgb(0, 205, 172)')
+        const conductivityChart = new Chart(
+            document.getElementById('conductivityChart'),
+            createChartConfig('Conductividad (µS/cm)', 'rgba(255, 215, 0, 0.3)', 'rgb(255, 215, 0)')
         );
         
         const phChart = new Chart(
@@ -196,7 +196,7 @@
                             },
                             ticks: {
                                 color: '#e6eef8',
-                                maxTicksLimit: 6
+                                maxTicksLimit: 8 // Aumentado para mostrar más etiquetas
                             }
                         }
                     },
@@ -244,6 +244,34 @@
             }
         }
         
+        // Función para obtener datos de conductividad
+        function getConductivityValue(feed) {
+            // Intentar obtener del campo mapeado
+            const fieldValue = feed[`field${fieldMapping.conductivity}`];
+            
+            if (fieldValue && !isNaN(parseFloat(fieldValue))) {
+                return parseFloat(fieldValue);
+            }
+            
+            // Si no hay datos reales, simular conductividad basada en temperatura y pH
+            const temp = parseFloat(feed[`field${fieldMapping.temperature}`]) || 25;
+            const ph = parseFloat(feed[`field${fieldMapping.ph}`]) || 7;
+            
+            // Fórmula simplificada para simular conductividad
+            // En agua, la conductividad aumenta con la temperatura y varía con el pH
+            let simulatedConductivity = 500 + (temp - 25) * 20;
+            
+            // Ajustar por pH (valores extremos de pH pueden afectar conductividad)
+            if (ph < 6 || ph > 8) {
+                simulatedConductivity += (Math.abs(ph - 7) * 50);
+            }
+            
+            // Agregar pequeña variación aleatoria
+            simulatedConductivity += (Math.random() * 40 - 20);
+            
+            return Math.max(100, simulatedConductivity); // Mínimo 100 µS/cm
+        }
+        
         // Función para procesar y mostrar los datos
         async function fetchData() {
             errorMessage.style.display = 'none';
@@ -255,25 +283,23 @@
                 // Limpiar datos anteriores
                 timeLabels = [];
                 temperatureData = [];
-                humidityData = [];
+                conductivityData = [];
                 phData = [];
                 oxygenData = [];
                 
-                // Procesar cada feed (últimos 10 datos)
+                // Procesar cada feed (últimos 20 datos)
                 feeds.forEach(feed => {
                     const feedDate = new Date(feed.created_at);
                     timeLabels.unshift(formatDateTime(feedDate)); // Agregar al inicio para orden cronológico
                     
                     // Extraer valores de cada campo
                     const tempValue = parseFloat(feed[`field${fieldMapping.temperature}`]) || 0;
+                    const conductivityValue = getConductivityValue(feed);
                     const phValue = parseFloat(feed[`field${fieldMapping.ph}`]) || 0;
                     const oxygenValue = parseFloat(feed[`field${fieldMapping.oxygen}`]) || 0;
                     
-                    // Para humedad, usar un cálculo basado en otros valores (ya que el canal no tiene humedad específica)
-                    const humidityValue = (50 + (tempValue - 25) * 2 + Math.random() * 10).toFixed(1);
-                    
                     temperatureData.unshift(tempValue);
-                    humidityData.unshift(parseFloat(humidityValue));
+                    conductivityData.unshift(conductivityValue);
                     phData.unshift(phValue);
                     oxygenData.unshift(oxygenValue);
                 });
@@ -284,12 +310,12 @@
                 
                 // Actualizar valores actuales en las tarjetas
                 const lastTemp = parseFloat(lastFeed[`field${fieldMapping.temperature}`]) || 0;
+                const lastConductivity = getConductivityValue(lastFeed);
                 const lastPH = parseFloat(lastFeed[`field${fieldMapping.ph}`]) || 0;
                 const lastOxygen = parseFloat(lastFeed[`field${fieldMapping.oxygen}`]) || 0;
-                const lastHumidity = (50 + (lastTemp - 25) * 2 + Math.random() * 10).toFixed(1);
                 
                 temperatureElement.textContent = lastTemp.toFixed(1);
-                humidityElement.textContent = lastHumidity;
+                conductivityElement.textContent = lastConductivity.toFixed(0);
                 phElement.textContent = lastPH.toFixed(1);
                 oxygenElement.textContent = lastOxygen.toFixed(1);
                 
@@ -298,7 +324,7 @@
                 
                 // Actualizar gráficos
                 updateChart(tempChart, timeLabels, temperatureData);
-                updateChart(humidityChart, timeLabels, humidityData);
+                updateChart(conductivityChart, timeLabels, conductivityData);
                 updateChart(phChart, timeLabels, phData);
                 updateChart(oxygenChart, timeLabels, oxygenData);
                 
@@ -496,12 +522,12 @@
 
     /* Colores específicos para cada tarjeta */
     .temperature { border-top: 4px solid #ff7e5f; }
-    .humidity { border-top: 4px solid #00cdac; }
+    .conductivity { border-top: 4px solid #ffd700; }
     .ph { border-top: 4px solid #a8ff78; }
     .oxygen { border-top: 4px solid #8e2de2; }
 
     .temperature .data-icon { color: #ff7e5f; }
-    .humidity .data-icon { color: #00cdac; }
+    .conductivity .data-icon { color: #ffd700; }
     .ph .data-icon { color: #a8ff78; }
     .oxygen .data-icon { color: #8e2de2; }
 

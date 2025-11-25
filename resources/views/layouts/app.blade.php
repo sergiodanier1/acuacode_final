@@ -465,7 +465,7 @@
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
   <!-- Sidebar -->
-  <div class="sidebar" id="sidebar" style="margin-top: -30px;">
+  <div class="sidebar" id="sidebar">
     <div>
       <nav class="menu" aria-label="Main menu">
         <ul>
@@ -492,10 +492,12 @@
           <li>
             <a href="{{ url('/Admin/Sensores') }}" class="{{ $current === 'admin/sensores' ? 'active' : '' }}">Administrar Sensores</a>
           </li>
-
-          <li>
+      <!-- alertas          
+         <li>
             <a href="{{ url('/Alertas/Activas') }}" class="{{ $current === 'alertas/activas' ? 'active' : '' }}">Ver alertas activas</a>
           </li>
+          -->
+
 
           <li>
             <a href="{{ url('/creditos') }}" class="{{ $current === 'creditos' ? 'active' : '' }}">Sobre Nosotros</a>
